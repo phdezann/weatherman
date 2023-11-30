@@ -1,0 +1,31 @@
+{
+  "data": {
+    "time": "2023-11-30T14:41:00Z",
+    "values": {
+      "cloudBase": 0.33,
+      "cloudCeiling": 0.33,
+      "cloudCover": 71,
+      "dewPoint": 7.81,
+      "freezingRainIntensity": 0,
+      "humidity": 83,
+      "precipitationProbability": 42,
+      "pressureSurfaceLevel": 993.38,
+      "rainIntensity": 0,
+      "sleetIntensity": 0,
+      "snowIntensity": 0,
+      "temperature": 10.5,
+      "temperatureApparent": 10.5,
+      "uvHealthConcern": 0,
+      "uvIndex": 0,
+      "visibility": 11.64,
+      "weatherCode": 1102,
+      "windDirection": 235.88,
+      "windGust": 6,
+      "windSpeed": 2.31
+    }
+  },
+  "location": {
+    "lat": 47.2519930495546,
+    "lon": -1.5358483515019556
+  }
+}
