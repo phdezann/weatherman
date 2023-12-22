@@ -78,10 +78,6 @@ public class MqttSubscriber extends AbstractMqttSubscriber {
             }
 
             if (isFrom(topic, MqttTopic.REFRESH_TOPIC) && msg.getEvent() == MsgEnum.REFRESH_SCREEN) {
-                if (diffInMillis(msg.getCreation(), now) > 1000) {
-                    log.trace("Discarding old refresh");
-                    return;
-                }
                 messageSender.sendMessage();
                 return;
             }
@@ -110,10 +106,6 @@ public class MqttSubscriber extends AbstractMqttSubscriber {
 
     private void sendRefreshScreen() {
         mqttInternalPublisher.writeMessage(MsgEnum.REFRESH_SCREEN);
-    }
-
-    private long diffInMillis(LocalDateTime then, LocalDateTime now) {
-        return ChronoUnit.MILLIS.between(then, now);
     }
 
 }
