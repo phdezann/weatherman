@@ -24,7 +24,7 @@ class InfluxDBRepositoryTest {
     private final InfluxDBRepository influxDBRepository = new InfluxDBRepository();
 
     @Test
-    void historical() {
+    void historicalConsumption() {
         var records = List.of( //
                 newRecord("2007-12-02T06:00:00", "0.9"), //
                 newRecord("2007-12-03T06:00:00", "1.7"), //
@@ -46,7 +46,7 @@ class InfluxDBRepositoryTest {
     }
 
     @Test
-    void historical_at4am() {
+    void historicalConsumption_at4am() {
         var records = List.of( //
                 newRecord("2007-12-01T06:00:00", "0.8"), //
                 newRecord("2007-12-02T06:00:00", "0.9"), //
@@ -68,7 +68,7 @@ class InfluxDBRepositoryTest {
     }
 
     @Test
-    void realtime() {
+    void realtimeConsumption() {
         var records = List.of( //
                 newRecord("2007-12-02T06:00:00", "0.9"), //
                 newRecord("2007-12-02T10:16:00", "1.2"), //
@@ -92,7 +92,7 @@ class InfluxDBRepositoryTest {
     }
 
     @Test
-    void current() {
+    void currentConsumption() {
         var records = List.of( //
                 newRecord("2007-12-05T06:00:00", "1.1"), //
                 newRecord("2007-12-05T10:16:00", "1.5"));
@@ -107,6 +107,23 @@ class InfluxDBRepositoryTest {
 
         assertThat(result).isEqualTo(Optional.of(newValue("2007-12-05", "0.4")));
     }
+
+    @Test
+    void currentConsumption_missingDayStartValue() {
+        var records = List.of( //
+                newRecord("2007-12-05T10:16:00", "1.5"));
+
+        var now = newEuropeParisDateTime("2007-12-05T10:16:30");
+
+        var expectedQueryParams = new QueryParams( //
+                newEuropeParisDateTime("2007-12-05T06:00:00").minusMinutes(1), //
+                newEuropeParisDateTime("2007-12-05T10:16:00"));
+
+        var result = influxDBRepository.currentConsumption(now, queryRunner(expectedQueryParams, records));
+
+        assertThat(result).isEmpty();
+    }
+
 
     private Function<QueryParams, List<Record>> queryRunner(QueryParams expectedQueryParam, List<Record> records) {
         return queryParams -> {

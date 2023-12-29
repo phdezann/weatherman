@@ -39,7 +39,7 @@ public class InfluxDBRepository {
                 }) //
                 .map(r -> new DateTimeValue(r.getTime(), r.getValue())) //
                 .toList();
-        var dateValues = computeDiff(values, records);
+        var dateValues = computeDiff(values, records); //
         if (dateValues.isEmpty()) {
             log.warn("Could not find consumption for '{}'", now);
             return Optional.empty();
@@ -146,12 +146,16 @@ public class InfluxDBRepository {
                     var start = records //
                             .stream() //
                             .filter(r -> r.getTime().isEqual(startTime)) //
-                            .findFirst() //
-                            .orElseThrow();
+                            .findFirst();
+                    if (start.isEmpty()) {
+                        return Optional.<DateValue> empty();
+                    }
                     var day = value.getDateTime().toLocalDate();
-                    var diff = value.getValue().subtract(start.getValue());
-                    return new DateValue(day, diff);
+                    var diff = value.getValue().subtract(start.get().getValue());
+                    return Optional.of(new DateValue(day, diff));
                 }) //
+                .filter(Optional::isPresent) //
+                .map(Optional::get) //
                 .toList();
     }
 
