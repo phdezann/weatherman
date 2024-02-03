@@ -33,13 +33,13 @@ class ForecastParserTest {
         assertThat(values.get(1).getTo().toString()).isEqualTo("2023-11-30T16:00+01:00[Europe/Paris]");
         assertThat(values.get(1).getPrecipitationProbability()).isEqualTo(0.0);
 
-        assertThat(values.get(2).getFrom().toString()).isEqualTo("2023-11-30T16:00+01:00[Europe/Paris]");
-        assertThat(values.get(2).getTo().toString()).isEqualTo("2023-11-30T17:00+01:00[Europe/Paris]");
-        assertThat(values.get(2).getPrecipitationProbability()).isEqualTo(0.0);
+        assertThat(values.get(2).getFrom().toString()).isEqualTo("2023-11-30T18:00+01:00[Europe/Paris]");
+        assertThat(values.get(2).getTo().toString()).isEqualTo("2023-11-30T19:00+01:00[Europe/Paris]");
+        assertThat(values.get(2).getPrecipitationProbability()).isEqualTo(44.0);
 
-        assertThat(values.get(3).getFrom().toString()).isEqualTo("2023-11-30T18:00+01:00[Europe/Paris]");
-        assertThat(values.get(3).getTo().toString()).isEqualTo("2023-11-30T19:00+01:00[Europe/Paris]");
-        assertThat(values.get(3).getPrecipitationProbability()).isEqualTo(44.0);
+        assertThat(values.get(3).getFrom().toString()).isEqualTo("2023-12-01T06:00+01:00[Europe/Paris]");
+        assertThat(values.get(3).getTo().toString()).isEqualTo("2023-12-01T07:00+01:00[Europe/Paris]");
+        assertThat(values.get(3).getPrecipitationProbability()).isEqualTo(15.0);
 
         assertThat(values.get(4).getFrom().toString()).isEqualTo("2023-12-01T12:00+01:00[Europe/Paris]");
         assertThat(values.get(4).getTo().toString()).isEqualTo("2023-12-01T13:00+01:00[Europe/Paris]");

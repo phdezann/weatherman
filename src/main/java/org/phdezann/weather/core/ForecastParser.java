@@ -34,9 +34,7 @@ public class ForecastParser {
         var nextHour = thisHour //
                 .plusHours(1);
 
-        var nextNextHour = nextHour //
-                .plusHours(1);
-
+        var next0600 = nextHourCalculator.getNext(now, 6);
         var next1200 = nextHourCalculator.getNext(now, 12);
         var next1800 = nextHourCalculator.getNext(now, 18);
         var root = jsonSerializer.readValue(json, ForecastRoot.class);
@@ -45,7 +43,7 @@ public class ForecastParser {
 
         findHour(root, thisHour).ifPresent(values::add);
         findHour(root, nextHour).ifPresent(values::add);
-        findHour(root, nextNextHour).ifPresent(values::add);
+        findHour(root, next0600).ifPresent(values::add);
         findHour(root, next1200).ifPresent(values::add);
         findHour(root, next1800).ifPresent(values::add);
 
