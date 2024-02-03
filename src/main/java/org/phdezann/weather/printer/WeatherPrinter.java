@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.phdezann.weather.core.AsciiProgressBarBuilder;
 import org.phdezann.weather.core.ForecastData;
 import org.phdezann.weather.model.ForecastSummary;
@@ -36,6 +35,15 @@ public class WeatherPrinter extends AbstractPrinter {
         var lines = new ArrayList<String>();
         lines.add(toHeader(temperature, ppap, now));
         lines.add(toLine(realtime));
+        lines.addAll(toLines(forecast, now));
+        lines.forEach(this::checkLength);
+        return String.join("\n", lines);
+    }
+
+    public String printNext6Hours(ForecastSummary forecast, Optional<Double> temperature,
+            Optional<String> ppap, ZonedDateTime now) {
+        var lines = new ArrayList<String>();
+        lines.add(toHeader(temperature, ppap, now));
         lines.addAll(toLines(forecast, now));
         lines.forEach(this::checkLength);
         return String.join("\n", lines);

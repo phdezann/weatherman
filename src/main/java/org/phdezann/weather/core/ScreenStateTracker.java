@@ -12,6 +12,7 @@ public class ScreenStateTracker {
 
     enum ScreenState {
         AWAKE_WEATHER,
+        AWAKE_WEATHER_NEXT_6H,
         AWAKE_REALTIME_CONSUMPTION,
         AWAKE_HISTORICAL_CONSUMPTION,
         SLEEPING
@@ -31,7 +32,8 @@ public class ScreenStateTracker {
 
     private ScreenState nextAwakeState(ScreenState awakeState) {
         return switch (awakeState) {
-        case AWAKE_WEATHER -> ScreenState.AWAKE_REALTIME_CONSUMPTION;
+        case AWAKE_WEATHER -> ScreenState.AWAKE_WEATHER_NEXT_6H;
+        case AWAKE_WEATHER_NEXT_6H -> ScreenState.AWAKE_REALTIME_CONSUMPTION;
         case AWAKE_REALTIME_CONSUMPTION -> ScreenState.AWAKE_HISTORICAL_CONSUMPTION;
         case AWAKE_HISTORICAL_CONSUMPTION -> ScreenState.AWAKE_WEATHER;
         default -> throw new IllegalArgumentException();

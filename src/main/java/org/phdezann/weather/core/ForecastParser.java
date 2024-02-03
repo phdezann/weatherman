@@ -19,7 +19,7 @@ public class ForecastParser {
     private final JsonSerializer jsonSerializer;
     private final NextHourCalculator nextHourCalculator;
 
-    public ForecastSummary parse(String json, ZonedDateTime now) {
+    public ForecastSummary build(String json, ZonedDateTime now) {
         if (appArgs.isFakeWeatherData()) {
             var from = nextHourCalculator.getNext(now, now.getHour() + 1);
             var to = from.plusHours(1);
@@ -46,6 +46,44 @@ public class ForecastParser {
         findHour(root, next0600).ifPresent(values::add);
         findHour(root, next1200).ifPresent(values::add);
         findHour(root, next1800).ifPresent(values::add);
+
+        var newValues = values //
+                .stream() //
+                .distinct() //
+                .sorted(Comparator.comparing(ForecastData::getFrom)) //
+                .toList();
+
+        return new ForecastSummary(newValues);
+    }
+
+    public ForecastSummary buildNext6Hours(String json, ZonedDateTime now) {
+        if (appArgs.isFakeWeatherData()) {
+            var from = nextHourCalculator.getNext(now, now.getHour() + 1);
+            var to = from.plusHours(1);
+            return new ForecastSummary(List.of(new ForecastData(from, to, 1.0, 1.0, 1000)));
+        }
+
+        var thisHour = now //
+                .withMinute(0) //
+                .withSecond(0) //
+                .withNano(0);
+
+        var plus1Hour = thisHour.plusHours(1);
+        var plus2Hours = thisHour.plusHours(2);
+        var plus3Hours = thisHour.plusHours(3);
+        var plus4Hours = thisHour.plusHours(4);
+        var plus5Hours = thisHour.plusHours(5);
+
+        var root = jsonSerializer.readValue(json, ForecastRoot.class);
+
+        var values = new ArrayList<ForecastData>();
+
+        findHour(root, thisHour).ifPresent(values::add);
+        findHour(root, plus1Hour).ifPresent(values::add);
+        findHour(root, plus2Hours).ifPresent(values::add);
+        findHour(root, plus3Hours).ifPresent(values::add);
+        findHour(root, plus4Hours).ifPresent(values::add);
+        findHour(root, plus5Hours).ifPresent(values::add);
 
         var newValues = values //
                 .stream() //

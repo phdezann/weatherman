@@ -14,7 +14,7 @@ class ForecastParserTest {
             new ForecastParser(new AppArgs(), new JsonSerializer(), new NextHourCalculator());
 
     @Test
-    void parse() throws Exception {
+    void build() throws Exception {
         var in = getClass().getResourceAsStream("/forecast.json");
         if (in == null) {
             throw new IllegalArgumentException();
@@ -22,7 +22,7 @@ class ForecastParserTest {
         var json = IOUtils.toString(in, StandardCharsets.UTF_8);
 
         var now = toEuropeParisTZ("2023-11-30T14:15");
-        var summary = forecastParser.parse(json, now);
+        var summary = forecastParser.build(json, now);
         var values = summary.getValues();
 
         assertThat(values.get(0).getFrom().toString()).isEqualTo("2023-11-30T14:00+01:00[Europe/Paris]");
@@ -55,7 +55,7 @@ class ForecastParserTest {
         var json = IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
 
         var now = toEuropeParisTZ("2023-12-05T13:00");
-        var summary = forecastParser.parse(json, now);
+        var summary = forecastParser.build(json, now);
         var values = summary.getValues();
 
         assertThat(values).isEmpty();

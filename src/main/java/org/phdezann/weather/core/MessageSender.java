@@ -53,6 +53,7 @@ public class MessageSender {
                 } else {
                     var text = switch (screenStateTracker.getCurrentState()) {
                     case AWAKE_WEATHER -> createWeatherText(now);
+                    case AWAKE_WEATHER_NEXT_6H -> createWeatherNext6HoursText(now);
                     case AWAKE_REALTIME_CONSUMPTION -> createRealtimeConsumptionText(now);
                     case AWAKE_HISTORICAL_CONSUMPTION -> createHistoricalConsumptionText(now);
                     default -> throw new IllegalStateException();
@@ -84,8 +85,14 @@ public class MessageSender {
         var realtimeContent = tomorrowIOClient.getRealtimeContent();
         var realtimeSummary = realtimeParser.parse(realtimeContent);
         var forecastContent = tomorrowIOClient.getForecastContent();
-        var forecastSummary = forecastParser.parse(forecastContent, now);
+        var forecastSummary = forecastParser.build(forecastContent, now);
         return weatherPrinter.print(realtimeSummary, forecastSummary, getTemperature(), getPapp(), now);
+    }
+
+    private String createWeatherNext6HoursText(ZonedDateTime now) {
+        var forecastContent = tomorrowIOClient.getForecastContent();
+        var forecastSummary = forecastParser.buildNext6Hours(forecastContent, now);
+        return weatherPrinter.printNext6Hours(forecastSummary, getTemperature(), getPapp(), now);
     }
 
     private String createHistoricalConsumptionText(ZonedDateTime now) {
