@@ -85,7 +85,10 @@ public class MqttSubscriber extends AbstractMqttSubscriber {
 
         if (isFrom(topic, MqttTopic.TIC_EVENT_TOPIC)) {
             var tic = jsonSerializer.readValue(rawMsg, TicRoot.class);
-            ticCache.put(CacheKey.PAPP, tic.getTic().getPapp());
+            var papp = tic.getTic().getPapp();
+            if (StringUtils.isNoneEmpty(papp)) {
+                ticCache.put(CacheKey.PAPP, papp);
+            }
             sendRefreshScreen();
             return;
         }
