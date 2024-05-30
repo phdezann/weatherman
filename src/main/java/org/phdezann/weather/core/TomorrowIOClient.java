@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TomorrowIOClient {
 
-    public static final String LOCATION = "Nantes, Loire-Atlantique, Pays de la Loire, France métropolitaine, France";
+    public static final String HOME_LOCATION = "47.25160979919201, -1.5355883380534765";
     private final AppArgs appArgs;
     private final TomorrowIOCache cache;
 
@@ -40,7 +40,7 @@ public class TomorrowIOClient {
             URI uri = new URIBuilder("https://api.tomorrow.io/v4/weather/realtime") //
                     .addParameter("apikey", appArgs.getTomorrowIoApiKey()) //
                     .addParameter("units", "metric") //
-                    .addParameter("location", LOCATION) //
+                    .addParameter("location", HOME_LOCATION) //
                     .build();
             return sendRequest(uri);
         } catch (URISyntaxException e) {
@@ -65,7 +65,7 @@ public class TomorrowIOClient {
                     .addParameter("apikey", appArgs.getTomorrowIoApiKey()) //
                     .addParameter("units", "metric") //
                     .addParameter("timesteps", "1h") //
-                    .addParameter("location", LOCATION) //
+                    .addParameter("location", HOME_LOCATION) //
                     .build();
             return sendRequest(uri);
         } catch (URISyntaxException e) {
