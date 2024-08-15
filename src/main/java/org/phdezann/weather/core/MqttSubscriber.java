@@ -63,7 +63,6 @@ public class MqttSubscriber extends AbstractMqttSubscriber {
 
     private void processMessage(String topic, MqttMessage message) {
         var rawMsg = new String(message.getPayload(), StandardCharsets.UTF_8);
-        var now = LocalDateTime.now();
 
         if (isFrom(topic, MqttTopic.WEATHERMAN_INBOX_TOPIC) || isFrom(topic, MqttTopic.REFRESH_TOPIC)) {
             var msg = jsonSerializer.readValue(rawMsg, Message.class);

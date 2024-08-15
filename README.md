@@ -1,0 +1,1 @@
+This projet reads the weather forecast from Tomorrow.io and publishes a formatted text message to mqtt.
