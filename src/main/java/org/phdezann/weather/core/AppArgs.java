@@ -24,6 +24,8 @@ public class AppArgs {
     private String influxdbOrg;
     @Parameter(names = "--influxdb-bucket", required = true)
     private String influxdbBucket;
+    @Parameter(names = "--weather-location", required = true)
+    private String weatherLocation;
     @Parameter(names = "--static-weather-data")
     private boolean fakeWeatherData;
 }

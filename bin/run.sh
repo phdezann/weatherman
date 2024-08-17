@@ -28,4 +28,5 @@ java -jar "${jar}" \
   --influxdb-token "${INFLUXDB_API_KEY}" \
   --influxdb-org "${INFLUXDB_ORG}" \
   --influxdb-bucket "${INFLUXDB_BUCKET}" \
+  --weather-location "${WEATHER_LOCATION}" \
   "$@"
