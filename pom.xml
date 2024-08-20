@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.phdezann</groupId>
-    <artifactId>weatherman</artifactId>
+    <artifactId>home-console-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>weatherman</name>
+    <name>home-console-backend</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
@@ -12,7 +12,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
         <maven-shade-plugin.version>3.4.0</maven-shade-plugin.version>
-        <main.class>org.phdezann.weather.Application</main.class>
+        <main.class>org.phdezann.home.console.Application</main.class>
     </properties>
     <dependencies>
         <dependency>

@@ -1,1 +1,1 @@
-This projet reads the weather forecast from Tomorrow.io and publishes a formatted text message to mqtt.
+This projet reads the weather forecast from Tomorrow.io and electrical consumption from mqtt. Then, it publishes a formatted text message to mqtt.
